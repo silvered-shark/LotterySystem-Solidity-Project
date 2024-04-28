@@ -85,5 +85,27 @@ describe('Lottery Contract', () => {
         } catch (error) {
             assert(error);
         }
+    });
+
+    it('sends money to winner and reset array',async()=>{
+        await lottery.methods.enter().send({
+            from:accounts[0],
+            value:web3.utils.toWei('5','ether')
+        })
+
+        const initialBalance=await web3.eth.getBalance(accounts[0]); //returns the balance of the account in wei
+        console.log(initialBalance)
+
+        await lottery.methods.pickWinner().send({from:accounts[0]})
+        //we recieved our money back
+
+        const finalBalance=await web3.eth.getBalance(accounts[0]);
+        console.log(finalBalance)
+
+        //the difference between the final and initial balance should be less than 5 ether because if gas
+
+        const difference=finalBalance-initialBalance;
+        assert(difference>web3.utils.toWei('4.8','ether'));
+
     })
 })
