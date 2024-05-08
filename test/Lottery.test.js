@@ -30,7 +30,7 @@ describe('Lottery Contract', () => {
         const players = await lottery.methods.getPlayers().call({
             from: accounts[0]
         })
-        // assert.equal(accounts[0], players[0]);//This line asserts that the first player in the list of players returned by getPlayers is the same as the account that entered the lottery. accounts[0]
+        assert.equal(accounts[0], players[0]);//This line asserts that the first player in the list of players returned by getPlayers is the same as the account that entered the lottery. accounts[0]
         assert.equal(1, players.length);   //This line asserts that the length of the players array returned by getPlayers is 1. This is because only one account has entered the lottery.
     })
 
